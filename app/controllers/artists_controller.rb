@@ -6,7 +6,21 @@ class ArtistsController < ApplicationController
   def show
     @artist = Artist.find(params[:id])
   end
+  
+  def songs_index
+      @artist = Artist.find(params[:id])
+      @songs = @artist.songs
+      render template: 'songs/index'
+    end
 
+    def post
+      @artist = Artist.find(params[:id])
+
+      # Note that because ids are unique by table we can go directly to
+      # Post.find — no need for @author.posts.find...
+      @song = Song.find(params[:song_id])
+      render template: 'songs/show'
+    end
   def new
     @artist = Artist.new
   end
